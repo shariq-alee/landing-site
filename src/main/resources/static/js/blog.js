@@ -150,7 +150,7 @@ async function initPostPage() {
     return;
   }
 
-  document.title = `${post.title} — Shariq`;
+  document.title = `${post.title} — Shariq Tech`;
 
   container.innerHTML = `
     <a href="/blog.html" class="link-arrow back-link">&larr; Back to all articles</a>
