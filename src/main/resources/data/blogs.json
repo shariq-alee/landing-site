@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "designing-apis-that-age-well",
+    "title": "Designing APIs that age well",
+    "excerpt": "A few habits that make REST APIs easy to extend later without breaking clients - versioning, pagination, and saying no to premature flexibility.",
+    "content": "<p>Most API pain doesn't show up on day one. It shows up eighteen months later, when the first version is load-bearing and you need to change something you didn't think carefully enough about.</p><h2>Version from the start</h2><p>Even a single <code>/api/v1</code> prefix costs nothing today and saves a painful migration later. Clients should never have to guess whether a breaking change is coming.</p><h2>Paginate everything that can grow</h2><p>A list endpoint that returns everything works fine with ten rows and falls over with ten thousand. Cursor-based pagination is a little more work up front and avoids a rewrite later.</p><blockquote>The easiest breaking change to avoid is the one you never shipped.</blockquote><h2>Resist flexibility you don't need yet</h2><p>Generic, configurable endpoints are tempting, but every extra parameter is a compatibility promise. Ship the narrow, obvious version first - you can always add options once a real use case shows up.</p>",
+    "author": "Shariq",
+    "authorInitials": "S",
+    "publishedAt": "2026-08-18",
+    "readTimeMinutes": 6,
+    "coverEmoji": "🔌",
+    "tags": ["API Design", "Backend"]
+  },
+  {
+    "slug": "kubernetes-resource-limits-that-dont-bite-you",
+    "title": "Kubernetes resource limits that don't bite you",
+    "excerpt": "Under-set requests cause noisy-neighbor problems. Over-set limits waste the cluster. Here's how I size both without guessing.",
+    "content": "<p>Resource requests and limits are one of those Kubernetes settings everyone configures once, copies everywhere, and rarely revisits - which is exactly how clusters end up either starved or wasteful.</p><h2>Start from real usage, not intuition</h2><p>Before setting anything, look at actual CPU and memory usage under load. A metrics-server dashboard or a few days of Prometheus data beats a guess every time.</p><pre><code>resources:\n  requests:\n    cpu: 250m\n    memory: 256Mi\n  limits:\n    cpu: 500m\n    memory: 512Mi</code></pre><h2>Requests are a scheduling promise, limits are a ceiling</h2><p>The scheduler places pods based on requests, so an under-set request just means the node looks emptier than it is - right up until every pod tries to use what it actually needs at once.</p><h2>Watch for OOMKills, not just CPU throttling</h2><p>A memory limit that's too tight kills the pod outright. A CPU limit that's too tight just slows it down. They fail very differently, so size them with that in mind.</p>",
+    "author": "Shariq",
+    "authorInitials": "S",
+    "publishedAt": "2026-07-30",
+    "readTimeMinutes": 7,
+    "coverEmoji": "☸️",
+    "tags": ["Kubernetes", "Cloud"]
+  },
+  {
+    "slug": "spring-boot-observability-without-the-overhead",
+    "title": "Spring Boot observability without the overhead",
+    "excerpt": "Actuator, Micrometer, and structured logs - a minimal setup that gives you real production visibility without adopting a whole platform.",
+    "content": "<p>You don't need a full observability platform to stop flying blind in production. A small, deliberate setup gets you most of the way there.</p><h2>Actuator as the baseline</h2><p>Health checks, metrics, and env info out of the box. Expose only what you need behind authentication - <code>/actuator/health</code> and <code>/actuator/metrics</code> cover most day-to-day needs.</p><h2>Micrometer for the metrics that matter</h2><p>Request latency, error rates, and a handful of business-specific counters go a long way. Resist the urge to instrument everything - a dashboard with 200 metrics is as useless as one with none.</p><h2>Structured logs, always</h2><p>JSON logs with a consistent set of fields (request id, user id, service name) turn log search from guesswork into actual querying. It costs almost nothing to set up and pays off the first time you're debugging a production incident at 2am.</p>",
+    "author": "Shariq",
+    "authorInitials": "S",
+    "publishedAt": "2026-06-22",
+    "readTimeMinutes": 5,
+    "coverEmoji": "📊",
+    "tags": ["Spring Boot", "Observability", "Backend"]
+  }
+]

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Blog — Shariq</title>
+<meta name="description" content="Articles on backend engineering, Spring Boot, Kubernetes and cloud infrastructure.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/index.html#top" class="logo">Shariq</a>
+    <nav class="nav-links">
+      <a href="/index.html#services">Services</a>
+      <a href="/blog.html" class="active">Blog</a>
+      <a href="/index.html#about">About</a>
+      <a href="/index.html#contact">Contact</a>
+    </nav>
+    <a href="/index.html#contact" class="btn btn-small btn-primary">Work with me</a>
+  </div>
+</header>
+
+<main>
+  <section class="blog-page-header">
+    <div class="container">
+      <span class="eyebrow">Tech Blog</span>
+      <h1>Notes on backend &amp; cloud engineering</h1>
+      <p class="hero-sub">
+        Writing on Java, Spring Boot, Kubernetes and the architecture decisions that hold
+        systems together in production.
+      </p>
+      <div class="tag-filter" id="tag-filter"></div>
+    </div>
+  </section>
+
+  <section class="blog-listing">
+    <div class="container">
+      <div class="blog-grid" id="blog-grid">
+        <p class="blog-loading">Loading articles&hellip;</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; <span id="year"></span> Shariq · Built with Spring Boot, deployed on Railway.</p>
+  </div>
+</footer>
+
+<script src="/js/blog.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
