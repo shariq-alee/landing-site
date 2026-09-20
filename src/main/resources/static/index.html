@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shariq — Backend &amp; Cloud Engineer</title>
+<meta name="description" content="Backend and cloud engineer working in Java, Spring Boot and Kubernetes. Available for API development, cloud infrastructure and architecture consulting.">
+<meta property="og:title" content="Shariq — Backend &amp; Cloud Engineer">
+<meta property="og:description" content="Java and Spring Boot services, Kubernetes infrastructure, and the architecture decisions behind them.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://shariq.tech">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="logo">Shariq</a>
+    <nav class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="btn btn-small btn-primary">Work with me</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <span class="eyebrow">Backend &amp; Cloud Engineer</span>
+      <h1>I build backend systems that hold up in production.</h1>
+      <p class="hero-sub">
+        Java and Spring Boot services, Kubernetes infrastructure, and the architecture
+        decisions behind them. I work on data-intensive systems in the energy sector,
+        and take on selected consulting work alongside it.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Start a conversation</a>
+        <a href="#services" class="btn btn-ghost">What I do</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="services">
+    <div class="container">
+      <h2>What I do</h2>
+      <div class="service-grid">
+        <div class="service-card">
+          <div class="service-icon">⚙️</div>
+          <h3>Backend &amp; API development</h3>
+          <p>
+            Java and Spring Boot services built to stay maintainable — REST and reactive
+            APIs, clear domain boundaries, and test coverage that lets you change things
+            later without breaking them.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">☁️</div>
+          <h3>Cloud &amp; Kubernetes</h3>
+          <p>
+            Containerised deployments on Kubernetes and EKS, Helm charts, and CI/CD
+            pipelines — from a first working deployment through to infrastructure that
+            scales without surprises.
+          </p>
+        </div>
+        <div class="service-card">
+          <div class="service-icon">📐</div>
+          <h3>Architecture &amp; consulting</h3>
+          <p>
+            System design reviews, modernising legacy services, dependency and security
+            remediation, and a second opinion on the decisions that are expensive to
+            reverse later.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="container about-inner">
+      <h2>About</h2>
+      <p>
+        I'm a backend engineer based in Islamabad, working mainly in Java and Spring Boot
+        with a focus on cloud-native systems. Most of my work involves data-intensive
+        services — integration layers, federated queries, and infrastructure that has to
+        stay up.
+      </p>
+      <p>
+        I care about systems that are boring in the best sense: predictable, observable,
+        and straightforward for whoever picks them up next. If that's the kind of problem
+        you have, I'd like to hear about it.
+      </p>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="container contact-inner">
+      <h2>Get in touch</h2>
+      <p class="contact-sub">
+        Tell me a bit about the project or the problem — I read every message and reply
+        within a couple of days.
+      </p>
+
+      <form id="contact-form" class="contact-form" novalidate>
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required maxlength="100">
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required maxlength="150">
+        </div>
+        <div class="form-row">
+          <label for="message">What are you working on?</label>
+          <textarea id="message" name="message" rows="5" required maxlength="2000"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Send message</button>
+        <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; <span id="year"></span> Shariq · Built with Spring Boot, deployed on Railway.</p>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+</body>
+</html>
