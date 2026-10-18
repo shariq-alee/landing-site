@@ -1,5 +1,7 @@
 package com.shariq.landing.controller;
 
+import com.shariq.landing.model.ContactSubmission;
+import com.shariq.landing.repository.ContactSubmissionRepository;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -10,14 +12,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Handles the landing page's contact / signup form.
- * Submissions are kept in memory for now (fine for a first launch) -
- * swap the storage layer for a database later without changing the frontend contract.
+ * Handles the landing page's contact form. Submissions are persisted so they
+ * survive restarts and redeploys; read them back via the secured /admin page.
  */
 @RestController
 @RequestMapping("/api")
@@ -25,7 +24,11 @@ public class ContactController {
 
     private static final Logger log = LoggerFactory.getLogger(ContactController.class);
 
-    private final List<ContactSubmission> submissions = new CopyOnWriteArrayList<>();
+    private final ContactSubmissionRepository repository;
+
+    public ContactController(ContactSubmissionRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping("/health")
     public ResponseEntity<Map<String, Object>> health() {
@@ -37,10 +40,9 @@ public class ContactController {
 
     @PostMapping("/contact")
     public ResponseEntity<Map<String, String>> submitContact(@Valid @RequestBody ContactRequest request) {
-        ContactSubmission submission = new ContactSubmission(
-                request.name(), request.email(), request.message(), Instant.now());
-        submissions.add(submission);
-        log.info("New contact submission from {} <{}>", submission.name(), submission.email());
+        ContactSubmission saved = repository.save(new ContactSubmission(
+                request.name(), request.email(), request.message(), Instant.now()));
+        log.info("New contact submission #{} from {}", saved.getId(), saved.getEmail());
 
         return ResponseEntity.ok(Map.of(
                 "status", "received",
@@ -48,13 +50,9 @@ public class ContactController {
         ));
     }
 
-    // --- internal types ---
-
     public record ContactRequest(
             @NotBlank @Size(max = 100) String name,
             @NotBlank @Email @Size(max = 150) String email,
             @NotBlank @Size(max = 2000) String message
     ) {}
-
-    private record ContactSubmission(String name, String email, String message, Instant receivedAt) {}
 }
