@@ -100,16 +100,22 @@ async function initBlogPage() {
     return;
   }
 
-  renderGrid(grid, allPosts, 'New articles are on the way - check back soon.');
+  // A topic picked from the nav menu arrives as ?tag= and pre-filters the list.
+  const requestedTag = new URLSearchParams(window.location.search).get('tag');
+  const matchingTag = requestedTag
+    ? [...new Set(allPosts.flatMap(p => p.tags))].find(t => t.toLowerCase() === requestedTag.toLowerCase())
+    : null;
+
+  showPosts(matchingTag);
 
   if (tagFilter && allPosts.length) {
     const tags = [...new Set(allPosts.flatMap(p => p.tags))].sort();
     const allBtn = document.createElement('button');
-    allBtn.className = 'tag-filter-btn active';
+    allBtn.className = 'tag-filter-btn';
     allBtn.textContent = 'All';
     allBtn.addEventListener('click', () => {
       setActiveFilter(allBtn);
-      renderGrid(grid, allPosts, 'New articles are on the way - check back soon.');
+      showPosts(null);
     });
     tagFilter.appendChild(allBtn);
 
@@ -119,10 +125,21 @@ async function initBlogPage() {
       btn.textContent = tag;
       btn.addEventListener('click', () => {
         setActiveFilter(btn);
-        renderGrid(grid, allPosts.filter(p => p.tags.includes(tag)), `No articles tagged "${tag}" yet.`);
+        showPosts(tag);
       });
       tagFilter.appendChild(btn);
+      if (tag === matchingTag) setActiveFilter(btn);
     });
+
+    if (!matchingTag) setActiveFilter(allBtn);
+  }
+
+  function showPosts(tag) {
+    if (!tag) {
+      renderGrid(grid, allPosts, 'New articles are on the way - check back soon.');
+      return;
+    }
+    renderGrid(grid, allPosts.filter(p => p.tags.includes(tag)), `No articles tagged "${tag}" yet.`);
   }
 
   function setActiveFilter(activeBtn) {
@@ -170,7 +187,60 @@ async function initPostPage() {
   `;
 }
 
+// Builds the nav "Blog" dropdown from the topics actually present in the posts,
+// so it stays in sync as articles are added.
+async function initTopicMenu() {
+  const menu = document.getElementById('blog-topics');
+  if (!menu) return;
+
+  let posts = [];
+  try {
+    posts = await fetchPosts();
+  } catch (e) {
+    posts = [];
+  }
+
+  menu.innerHTML = '';
+  [...new Set(posts.flatMap(p => p.tags))].sort().forEach(tag => {
+    const link = document.createElement('a');
+    link.href = `/blog.html?tag=${encodeURIComponent(tag)}`;
+    link.textContent = tag;
+    menu.appendChild(link);
+  });
+
+  const all = document.createElement('a');
+  all.className = 'nav-dropdown-all';
+  all.href = '/blog.html';
+  all.textContent = 'All articles';
+  menu.appendChild(all);
+}
+
+function initDropdownToggle() {
+  const dropdown = document.querySelector('.nav-dropdown');
+  if (!dropdown) return;
+  const toggle = dropdown.querySelector('.nav-dropdown-toggle');
+
+  toggle.addEventListener('click', () => {
+    const open = dropdown.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (dropdown.contains(e.target)) return;
+    dropdown.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    dropdown.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initTopicMenu();
+  initDropdownToggle();
   initHomePreview();
   initBlogPage();
   initPostPage();

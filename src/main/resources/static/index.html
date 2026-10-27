@@ -21,7 +21,12 @@
     <a href="#top" class="logo">Shariq Tech</a>
     <nav class="nav-links">
       <a href="#services">Services</a>
-      <a href="/blog.html">Blog</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+          Blog <span class="caret" aria-hidden="true">&#9662;</span>
+        </button>
+        <div class="nav-dropdown-menu" id="blog-topics"></div>
+      </div>
       <a href="#about">About</a>
       <a href="#certifications">Certifications</a>
       <a href="#contact">Contact</a>
@@ -37,8 +42,8 @@
       <h1>Backend and cloud engineering that scales</h1>
       <p class="hero-sub">
         Java and Spring Boot services, Kubernetes infrastructure, and the architecture
-        decisions behind them. I work on data-intensive systems in the energy sector,
-        and take on selected consulting work alongside it.
+        decisions behind them. I work on data-intensive systems, and take on selected
+        consulting work alongside it.
       </p>
       <div class="hero-actions">
         <a href="#contact" class="btn btn-primary">Start a conversation</a>
