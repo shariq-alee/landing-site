@@ -1,4 +1,4 @@
-package com.shariq.landing.model;
+package com.shariq.shariqtech.model;
 
 import java.time.LocalDate;
 import java.util.List;
