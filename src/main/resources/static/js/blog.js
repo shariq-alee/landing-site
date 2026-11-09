@@ -202,16 +202,21 @@ const TOPICS = [
 
 function markActiveTopic(slug) {
   document.querySelectorAll('.topic-bar-inner a').forEach(a => {
-    if (a.getAttribute('href') === `/topic.html?topic=${slug}`) a.classList.add('active');
+    if (a.getAttribute('href') === `/${slug}`) a.classList.add('active');
   });
+}
+
+// Topic pages are served at a readable path such as /aws, which the server
+// forwards to this markup, so the slug comes from the URL path.
+function slugFromPath() {
+  return window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
 }
 
 async function initTopicPage() {
   const grid = document.getElementById('topic-grid');
   if (!grid) return;
 
-  const slug = new URLSearchParams(window.location.search).get('topic');
-  const topic = TOPICS.find(t => t.slug === slug);
+  const topic = TOPICS.find(t => t.slug === slugFromPath());
   const title = document.getElementById('topic-title');
   const count = document.getElementById('topic-count');
 
@@ -227,7 +232,7 @@ async function initTopicPage() {
 
   let posts = [];
   try {
-    const res = await fetch(`/api/topics/${topic.slug}`);
+    const res = await fetch(`/api/${topic.slug}`);
     if (!res.ok) throw new Error('Request failed with ' + res.status);
     posts = await res.json();
   } catch (e) {
