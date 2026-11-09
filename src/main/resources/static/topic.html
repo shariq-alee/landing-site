@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topic — Shariq Tech</title>
+<meta name="description" content="Articles on backend engineering, cloud infrastructure and the tools behind them.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/index.html#top" class="logo">Shariq Tech</a>
+    <nav class="nav-links">
+      <a href="/index.html#services">Services</a>
+      <a href="/index.html#about">About</a>
+      <a href="/index.html#certifications">Certifications</a>
+      <a href="/index.html#contact">Contact</a>
+    </nav>
+    <a href="/index.html#contact" class="btn btn-small btn-primary">Work with me</a>
+  </div>
+  <nav class="topic-bar" aria-label="Topics">
+    <div class="container topic-bar-inner">
+      <a href="/topic.html?topic=enterprise-ai">Enterprise AI</a>
+      <a href="/topic.html?topic=aws">AWS</a>
+      <a href="/topic.html?topic=java">Java</a>
+      <a href="/topic.html?topic=kubernetes">Kubernetes</a>
+      <a href="/topic.html?topic=docker">Docker</a>
+      <a href="/topic.html?topic=databases">Databases</a>
+      <a href="/topic.html?topic=messaging">Messaging</a>
+      <a href="/topic.html?topic=package-management">Package Management</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="blog-page-header">
+    <div class="container">
+      <span class="eyebrow">Tech Blog</span>
+      <h1 id="topic-title">Topic</h1>
+      <p class="hero-sub" id="topic-count"></p>
+    </div>
+  </section>
+
+  <section class="blog-listing">
+    <div class="container">
+      <div class="blog-grid" id="topic-grid">
+        <p class="blog-loading">Loading articles&hellip;</p>
+      </div>
+      <p class="topic-all-link">
+        <a href="/blog.html" class="link-arrow">Browse all articles &rarr;</a>
+      </p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>&copy; <span id="year"></span> Shariq Tech · Developed using Spring Boot.</p>
+  </div>
+</footer>
+
+<script src="/js/blog.js"></script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>

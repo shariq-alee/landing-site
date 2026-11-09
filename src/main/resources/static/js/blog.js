@@ -187,60 +187,63 @@ async function initPostPage() {
   `;
 }
 
-// Builds the nav "Blog" dropdown from the topics actually present in the posts,
-// so it stays in sync as articles are added.
-async function initTopicMenu() {
-  const menu = document.getElementById('blog-topics');
-  if (!menu) return;
+// Each topic in the menu bar has its own backend endpoint; the page just
+// calls the one matching ?topic= and renders whatever it returns.
+const TOPICS = [
+  { slug: 'enterprise-ai', label: 'Enterprise AI' },
+  { slug: 'aws', label: 'AWS' },
+  { slug: 'java', label: 'Java' },
+  { slug: 'kubernetes', label: 'Kubernetes' },
+  { slug: 'docker', label: 'Docker' },
+  { slug: 'databases', label: 'Databases' },
+  { slug: 'messaging', label: 'Messaging' },
+  { slug: 'package-management', label: 'Package Management' },
+];
+
+function markActiveTopic(slug) {
+  document.querySelectorAll('.topic-bar-inner a').forEach(a => {
+    if (a.getAttribute('href') === `/topic.html?topic=${slug}`) a.classList.add('active');
+  });
+}
+
+async function initTopicPage() {
+  const grid = document.getElementById('topic-grid');
+  if (!grid) return;
+
+  const slug = new URLSearchParams(window.location.search).get('topic');
+  const topic = TOPICS.find(t => t.slug === slug);
+  const title = document.getElementById('topic-title');
+  const count = document.getElementById('topic-count');
+
+  if (!topic) {
+    title.textContent = 'Unknown topic';
+    grid.innerHTML = '<p class="blog-empty">Pick a topic from the menu above.</p>';
+    return;
+  }
+
+  document.title = `${topic.label} — Shariq Tech`;
+  title.textContent = topic.label;
+  markActiveTopic(topic.slug);
 
   let posts = [];
   try {
-    posts = await fetchPosts();
+    const res = await fetch(`/api/topics/${topic.slug}`);
+    if (!res.ok) throw new Error('Request failed with ' + res.status);
+    posts = await res.json();
   } catch (e) {
-    posts = [];
+    count.textContent = '';
+    grid.innerHTML = '<p class="blog-empty">Couldn\'t load articles right now.</p>';
+    return;
   }
 
-  menu.innerHTML = '';
-  [...new Set(posts.flatMap(p => p.tags))].sort().forEach(tag => {
-    const link = document.createElement('a');
-    link.href = `/blog.html?tag=${encodeURIComponent(tag)}`;
-    link.textContent = tag;
-    menu.appendChild(link);
-  });
-
-  const all = document.createElement('a');
-  all.className = 'nav-dropdown-all';
-  all.href = '/blog.html';
-  all.textContent = 'All articles';
-  menu.appendChild(all);
-}
-
-function initDropdownToggle() {
-  const dropdown = document.querySelector('.nav-dropdown');
-  if (!dropdown) return;
-  const toggle = dropdown.querySelector('.nav-dropdown-toggle');
-
-  toggle.addEventListener('click', () => {
-    const open = dropdown.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', String(open));
-  });
-
-  document.addEventListener('click', (e) => {
-    if (dropdown.contains(e.target)) return;
-    dropdown.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    dropdown.classList.remove('open');
-    toggle.setAttribute('aria-expanded', 'false');
-  });
+  count.textContent = posts.length
+    ? `${posts.length} article${posts.length === 1 ? '' : 's'}`
+    : '';
+  renderGrid(grid, posts, `No ${topic.label} articles yet - check back soon.`);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTopicMenu();
-  initDropdownToggle();
+  initTopicPage();
   initHomePreview();
   initBlogPage();
   initPostPage();

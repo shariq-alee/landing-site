@@ -9,7 +9,11 @@
     "publishedAt": "2026-08-18",
     "readTimeMinutes": 6,
     "coverEmoji": "🔌",
-    "tags": ["API Design", "Backend"]
+    "tags": [
+      "API Design",
+      "Backend",
+      "Java"
+    ]
   },
   {
     "slug": "kubernetes-resource-limits-that-dont-bite-you",
@@ -21,7 +25,10 @@
     "publishedAt": "2026-07-30",
     "readTimeMinutes": 7,
     "coverEmoji": "☸️",
-    "tags": ["Kubernetes", "Cloud"]
+    "tags": [
+      "Kubernetes",
+      "Cloud"
+    ]
   },
   {
     "slug": "spring-boot-observability-without-the-overhead",
@@ -33,6 +40,11 @@
     "publishedAt": "2026-06-22",
     "readTimeMinutes": 5,
     "coverEmoji": "📊",
-    "tags": ["Spring Boot", "Observability", "Backend"]
+    "tags": [
+      "Spring Boot",
+      "Observability",
+      "Backend",
+      "Java"
+    ]
   }
 ]
