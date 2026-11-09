@@ -1,8 +1,8 @@
-package com.shariq.landing.service;
+package com.shariq.shariqtech.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.shariq.landing.model.BlogPost;
+import com.shariq.shariqtech.model.BlogPost;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 

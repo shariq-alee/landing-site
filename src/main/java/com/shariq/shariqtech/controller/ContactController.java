@@ -1,4 +1,4 @@
-package com.shariq.landing.controller;
+package com.shariq.shariqtech.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;

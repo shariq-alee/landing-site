@@ -1,4 +1,4 @@
-package com.shariq.landing.controller;
+package com.shariq.shariqtech.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

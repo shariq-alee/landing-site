@@ -1,7 +1,7 @@
-package com.shariq.landing.controller;
+package com.shariq.shariqtech.controller;
 
-import com.shariq.landing.model.BlogPost;
-import com.shariq.landing.service.BlogService;
+import com.shariq.shariqtech.model.BlogPost;
+import com.shariq.shariqtech.service.BlogService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
