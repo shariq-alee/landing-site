@@ -201,7 +201,7 @@ const TOPICS = [
 ];
 
 function markActiveTopic(slug) {
-  document.querySelectorAll('.topic-bar-inner a').forEach(a => {
+  document.querySelectorAll('.nav-links a').forEach(a => {
     if (a.getAttribute('href') === `/${slug}`) a.classList.add('active');
   });
 }
