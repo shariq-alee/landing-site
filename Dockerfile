@@ -14,7 +14,7 @@ RUN mvn -q -B clean package -DskipTests
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
-COPY --from=build /app/target/landing-site.jar app.jar
+COPY --from=build /app/target/shariq-tech.jar app.jar
 
 # Railway sets $PORT at runtime; application.properties reads it
 EXPOSE 8080

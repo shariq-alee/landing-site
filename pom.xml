@@ -12,10 +12,10 @@
     </parent>
 
     <groupId>com.shariq</groupId>
-    <artifactId>landing-site</artifactId>
-    <version>1.0.0</version>
-    <name>landing-site</name>
-    <description>Landing page site - Spring Boot backend + static frontend</description>
+    <artifactId>shariq-tech</artifactId>
+    <version>1.0.1</version>
+    <name>shariq-tech</name>
+    <description>Shariq Tech - Spring Boot backend + static frontend</description>
 
     <properties>
         <java.version>21</java.version>
@@ -39,7 +39,7 @@
     </dependencies>
 
     <build>
-        <finalName>landing-site</finalName>
+        <finalName>shariq-tech</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
